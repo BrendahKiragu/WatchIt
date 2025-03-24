@@ -3,6 +3,7 @@ import Search from "./components/search";
 import Spinner from "./components/spinner";
 import MovieCard from "./components/movieCard";
 import { useState, useEffect } from "react";
+import { useDebounce } from "react-use";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -22,6 +23,10 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  // A debouncer to reduce API requests
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
   //  fetches movies from tmdb
   const fetchMovies = async (query = "") => {
@@ -57,8 +62,8 @@ export default function App() {
 
   // show movies on page load
   useEffect(() => {
-    fetchMovies(searchTerm);
-  }, [searchTerm]);
+    fetchMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   return (
     <main>
