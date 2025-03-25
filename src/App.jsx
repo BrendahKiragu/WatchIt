@@ -4,6 +4,7 @@ import Spinner from "./components/spinner";
 import MovieCard from "./components/movieCard";
 import { useState, useEffect } from "react";
 import { useDebounce } from "react-use";
+import { updateSearchCount } from "./components/appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -51,6 +52,8 @@ export default function App() {
       }
       setMovieList(data.results || []);
 
+      updateSearchCount();
+
       console.log(data);
     } catch (error) {
       console.error(`Error fetching movies ${error}`);
@@ -71,6 +74,9 @@ export default function App() {
         {/* hero page */}
         <div className="wrapper">
           <header>
+            <h2 className="text-gradient text-center">
+              <a href="#search">WatchIt®</a>
+            </h2>
             <img src="./hero.png" alt="Hero background" />
             <h1>
               Find <span className="text-gradient">Movies </span>you will Enjoy
@@ -96,6 +102,12 @@ export default function App() {
             )}
           </section>
         </div>
+        {/* footer section */}
+        <footer>
+          <p className="text-gradient text-center">
+            Made with love by Brendah K {new Date().getFullYear()} &copy;
+          </p>
+        </footer>{" "}
       </div>
     </main>
   );
