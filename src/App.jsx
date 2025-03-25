@@ -4,7 +4,7 @@ import Spinner from "./components/spinner";
 import MovieCard from "./components/movieCard";
 import { useState, useEffect } from "react";
 import { useDebounce } from "react-use";
-import { updateSearchCount } from "./components/appwrite";
+import { AppWrite } from "./components/appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -52,7 +52,7 @@ export default function App() {
       }
       setMovieList(data.results || []);
 
-      updateSearchCount();
+      AppWrite();
 
       console.log(data);
     } catch (error) {
