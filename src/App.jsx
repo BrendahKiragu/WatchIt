@@ -4,7 +4,7 @@ import Spinner from "./components/spinner";
 import MovieCard from "./components/movieCard";
 import { useState, useEffect } from "react";
 import { useDebounce } from "react-use";
-import { AppWrite } from "./components/appwrite";
+import Appwriter from "./components/appwrite";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
@@ -52,7 +52,10 @@ export default function App() {
       }
       setMovieList(data.results || []);
 
-      AppWrite();
+      // tracks the number of time a movie has been searched
+      if (query && data.results.length > 0) {
+        await Appwriter(query, data.results[0]);
+      }
 
       console.log(data);
     } catch (error) {
