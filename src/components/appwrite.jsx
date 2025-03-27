@@ -10,7 +10,7 @@ const client = new Client()
 
 const database = new Databases(client);
 
-const AppWriter = async (searchTerm, movie) => {
+export const SearchUpdate = async (searchTerm, movie) => {
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
       Query.equal("searchTerm", searchTerm),
@@ -45,4 +45,17 @@ const AppWriter = async (searchTerm, movie) => {
   }
 };
 
-export default AppWriter;
+export const MostSearchedMovies = async () => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(5),
+      Query.orderDesc("count"),
+    ]);
+
+    return result.documents;
+  } catch (error) {
+    console.error("Error fetching trending movies", error);
+  }
+};
+
+// export default SearchUpdate;
