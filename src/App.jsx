@@ -123,14 +123,14 @@ export default function App() {
           )}
 
           {/* Loading, error container / movieCard */}
-          <section className="all-movies">
+          <section className="all-movies" id="all-movies">
             <h2>All movies</h2>
             {isLoading ? (
               <Spinner />
             ) : errorMessage ? (
               <p className="text-red-500">{errorMessage}</p>
             ) : (
-              <ul>
+              <ul id="all-movie">
                 {movieList.map((movie) => (
                   <MovieCard key={movie.id} movie={movie} />
                 ))}
